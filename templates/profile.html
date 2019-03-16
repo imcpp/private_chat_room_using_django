@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!-- Include the above in your HEAD tag ---------->
+<link rel="stylesheet" href="{% static 'profile.css' %}" />
+
+<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <title></title>
+  </head>
+  <body>
+
+<div class="container">
+    <div class="fb-profile">
+        <img align="left" class="fb-image-lg" src="http://lorempixel.com/850/280/nightlife/5/" alt="Profile image example"/>
+        <img align="left" class="fb-image-profile thumbnail" src="http://lorempixel.com/180/180/people/9/" alt="Profile image example"/>
+        <div class="fb-profile-text">
+            <h1>katrina</h1>
+            <p>bhabhi hain tumhari.</p>
+        </div>
+        <div id="button"class="btn-group btn-group-lg" role="group" aria-label="Basic example" >
+          <button  onclick="myfuction('forprofile')" value="forprofile" type="button" class="btn btn-secondary">profile</button>
+          <button onclick="myfuction('forpost')"value="forpost"type="button" class="btn btn-secondary">post</button>
+          <button onclick="myfuction('forprojects')"value="forprojects" type="button" class="btn btn-secondary">projects</button>
+          <button onclick="myfuction('forfriends')"value="forfriends" type="button" class="btn btn-secondary">Friends</button>
+</div>
+    </div>
+    <br><br><br>
+  <div id="forprofile" style="">
+
+      <h1>{{request.user}}</h1>
+
+
+      </div>
+
+      <div id="forpost" style="display:none">
+        <h1>post</h1>
+
+      </div>
+      <div id="forfriends"style="display:none">
+        <h1>Friends</h1>
+        {%for user in users %}
+          <h1>{{user.username}}</h1>
+        {%endfor%}
+
+      </div>
+      <div id="forprojects"style="display:none">
+        <h1>projects</h1>
+
+      </div>
+
+
+
+</div> <!-- /container -->
+<script type="text/javascript">
+ function myfuction(a)
+ {
+   //var a=document.getElementById("button").val();
+   //alert(a);
+   var values=['forpost','forfriends','forprofile','forprojects']
+   var i;
+   for ( i=0;i<4;i++){
+     if (values[i] !=a){
+       document.getElementById(values[i]).style.display="none";
+
+     }
+   }
+   var x = document.getElementById(a);
+   if (x.style.display === "none") {
+   x.style.display = "block";
+ }
+
+
+ }
+
+</script>
+
+
+  </body>
+</html>

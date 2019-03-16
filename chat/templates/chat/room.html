@@ -1,0 +1,354 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,300' rel='stylesheet' type='text/css'>
+    <script src="https://use.typekit.net/hoy3lrg.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+
+<body>
+  <div id="frame">
+    <div id="sidepanel">
+      <div id="profile">
+        <div class="wrap">
+          <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
+          <p>{{request.user}}</p>
+          <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
+          <div id="status-options">
+            <ul>
+              <li id="status-online" class="active"><span class="status-circle"></span> <p>Online</p></li>
+              <li id="status-away"><span class="status-circle"></span> <p>Away</p></li>
+              <li id="status-busy"><span class="status-circle"></span> <p>Busy</p></li>
+              <li id="status-offline"><span class="status-circle"></span> <p>Offline</p></li>
+            </ul>
+          </div>
+          <div id="expanded">
+            <label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
+            <input name="twitter" type="text" value="mikeross" />
+            <label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
+            <input name="twitter" type="text" value="ross81" />
+            <label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
+            <input name="twitter" type="text" value="mike.ross" />
+          </div>
+        </div>
+      </div>
+      <div id="search">
+        <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+        <input type="text" placeholder="Search contacts..." />
+      </div>
+      <div id="contacts">
+        <ul>
+          {%for user in users%}
+          <li onclick="myfunction('{{user.username}}')"  class="contact">
+
+            <div class="wrap">
+              <span class="contact-status online"></span>
+              <img src="http://emilcarlsson.se/assets/louislitt.png" alt="" />
+              <div class="meta">
+                <p class="name">{{user.username}}</p>
+                <p class="preview">hm hain {{user.username}} sb milke bolo pkmkb </p>
+
+              </div>
+            </div>
+          </li>
+          {%endfor%}
+
+        </ul>
+      </div>
+      <div id="bottom-bar">
+        <button id="addcontact"><i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add contact</span></button>
+        <button  id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
+        <a href="{%url "logout" %}" class="btn btn-info  btn btn-primary btn-lg pull-right" role="button">Logout</a>
+      </div>
+    </div>
+    <div class="content">
+      <div class="contact-profile">
+        <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+        <p id="selected" >{{use}}</p>
+        <div class="social-media">
+          <i class="fa fa-facebook" aria-hidden="true"></i>
+          <i class="fa fa-twitter" aria-hidden="true"></i>
+          <i class="fa fa-instagram" aria-hidden="true"></i>
+        </div>
+      </div>
+      <div class="messages">
+        <ul id="chat-log">
+          {% comment %} <li class="sent">
+            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+            <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+          </li>
+          <li class="replies">
+            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+            <p>When you're backed against the wall, break the god damn thing down.</p>
+          </li> {% endcomment %}
+        </ul>
+      </div>
+      <div class="message-input">
+        <div class="wrap">
+        <input id="chat-message-input" type="text" placeholder="Write your message..." />
+        <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+        <button id="chat-message-submit" class="submit">
+          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </button>
+
+        </div>
+        <select id="lang">
+      <option value="hinglish">hinglish</option>
+      <option value="deafult" selected>deafult</option>
+      <option value="af">	Afrikaans</option>
+      <option value="sq">	Albanian</option>
+      <option value="am">Amharic</option>
+      <option value="ar">Arabic</option>
+      <option value="hy">Armenian</option>
+      <option value="az">Azerbaijani</option>
+      <option value="eu">Basque</option>
+      <option value="be">Belarusian</option>
+      <option value="bn">Bengali</option>
+      <option value="bs">Bosnian</option>
+      <option value="bg">Bulgarian</option>
+      <option value="ca">Catalan</option>
+      <option value="ceb">Cebuano</option>
+      <option value="zh-CN">Chinese (Simplified)</option>
+      <option value="zh-TW">Chinese (Traditional)</option>
+      <option value="co">Corsican</option>
+      <option value="hr">Croatian</option>
+      <option value="cs">Czech</option>
+      <option value="da">Danish</option>
+      <option value="nl">Dutch</option>
+      <option value="en">English</option>
+      <option value="eo">Esperanto</option>
+      <option value="et">Estonian</option>
+      <option value="fi">Finnish</option>
+      <option value="fr">French</option>
+      <option value="fy">Frisian</option>
+      <option value="gl">Galician</option>
+      <option value="ka">Georgian</option>
+      <option value="de">German</option>
+      <option value="el">Greek</option>
+      <option value="gu">Gujarati</option>
+      <option value="ht">Haitian Creole</option>
+      <option value="ha">Hausa</option>
+      <option value="haw">Hawaiian</option>
+      <option value="he">Hebrew</option>
+      <option value="hi">Hindi</option>
+      <option value="hmn">Hmong</option>
+      <option value="hu">Hungarian</option>
+      <option value="is">Icelandic</option>
+      <option value="ig">Igbo</option>
+      <option value="id">Indonesian</option>
+      <option value="ga">Irish</option>
+      <option value="it">Italian</option>
+      <option value="ja">Japanese</option>
+      <option value="jw">Javanese</option>
+      <option value="kn">Kannada</option>
+      <option value="kk">Kazakh</option>
+      <option value="km">Khmer</option>
+      <option value="ko">Korean</option>
+      <option value="ku">Kurdish</option>
+      <option value="ky">Kyrgyz</option>
+      <option value="lo">Lao</option>
+      <option value="la">Latin</option>
+      <option value="lv">Latvian</option>
+      <option value="lt">Lithuanian</option>
+
+
+    <!--
+    Luxembourgish	lb
+    Macedonian	mk
+    Malagasy	mg
+    Malay	ms
+    Malayalam	ml
+    Maltese	mt
+    Maori	mi
+    Marathi	mr
+    Mongolian	mn
+    Myanmar (Burmese)	my
+    Nepali	ne
+    Norwegian	no
+    Nyanja (Chichewa)	ny
+    Pashto	ps
+    Persian	fa
+    Polish	pl
+    Portuguese (Portugal, Brazil)	pt
+    Punjabi	pa
+    Romanian	ro
+    Russian	ru
+    Samoan	sm
+    Scots Gaelic	gd
+    Serbian	sr
+    Sesotho	st
+    Shona	sn
+    Sindhi	sd
+    Sinhala (Sinhalese)	si
+    Slovak	sk
+    Slovenian	sl
+    Somali	so
+    Spanish	es
+    Sundanese	su
+    Swahili	sw
+    Swedish	sv
+    Tagalog (Filipino)	tl
+    Tajik	tg
+    Tamil	ta
+    Telugu	te
+    Thai	th
+    Turkish	tr
+    Ukrainian	uk
+    Urdu	ur
+    Uzbek	uz
+    Vietnamese	vi
+    Welsh	cy
+    Xhosa	xh
+    Yiddish	yi
+    Yoruba	yo
+    Zulu	zu -->
+
+    </select>
+      </div>
+
+    </div>
+  </div>
+
+<script src="{% static 'main.js' %}"></script>
+<script src="{% static 'reconnecting-websocket.js' %}"></script>
+<script type="text/javascript">
+
+
+
+
+  $(document).ready(function(){
+
+
+      var name = $("#chat-message-input").val();
+      var lang = $("#lang").val();
+
+
+    $('#chat-message-input').keyup(function(e){
+
+      if(e.keyCode == 32){
+        $.ajax({
+          url: "{%  url 'search' %}",
+          type: "GET",
+          data: {
+              'name':$("#chat-message-input").val(),
+              'lang': $("#lang").val(),
+
+          },
+          contentType: "application/json;charset=utf-8",
+          dataType: "json",
+          success: function(data) {
+            //$("#loaddata").text(data.name);
+            $("#chat-message-input").val(data.name);
+              //alert(data.name);
+          },
+          error: function(ts) {
+              alert("please input something");
+          }
+      });
+
+ }
+
+
+
+    });
+
+  });
+</script>
+<script>
+    var roomName = {{ room_name_json }};
+    var username = {{ username }};
+
+    var chatSocket = new ReconnectingWebSocket(
+        'ws://' + window.location.host +
+        '/ws/chat/' + roomName + '/');
+
+    chatSocket.onopen = function(e) {
+      fetchMessages();
+    }
+
+    chatSocket.onmessage = function(e) {
+        var data = JSON.parse(e.data);
+        if (data['command'] === 'messages') {
+          for (let i=0; i<data['messages'].length; i++) {
+            createMessage(data['messages'][i]);
+          }
+        } else if (data['command'] === 'new_message'){
+          createMessage(data['message']);
+        }
+    };
+
+    chatSocket.onclose = function(e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#chat-message-input').onkeyup = function(e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function(e) {
+        var messageInputDom = document.getElementById('chat-message-input');
+        var message = messageInputDom.value;
+        chatSocket.send(JSON.stringify({
+            'command': 'new_message',
+            'message': message,
+            'from': username
+        }));
+
+        messageInputDom.value = '';
+         $(".messages").stop().animate({ scrollTop: $(".messages")[0].scrollHeight}, "fast");
+    };
+
+    function fetchMessages() {
+      chatSocket.send(JSON.stringify({'command': 'fetch_messages' }));
+    }
+
+    function createMessage(data) {
+      var author = data['author'];
+      var msgListTag = document.createElement('li');
+      var imgTag = document.createElement('img');
+      var pTag = document.createElement('p');
+      pTag.textContent = data.content;
+      imgTag.src = 'http://emilcarlsson.se/assets/mikeross.png';
+
+      if (author === username) {
+        msgListTag.className = 'sent';
+      } else {
+        msgListTag.className = 'replies';
+      }
+      msgListTag.appendChild(imgTag);
+      msgListTag.appendChild(pTag);
+      document.querySelector('#chat-log').appendChild(msgListTag);
+    }
+    function myfunction(u){
+      //document.getElementById("selected").innerHTML=u;
+
+      var total=u+username
+      var t=total.split("")
+      t.sort()
+      var p=t.join("")
+      //alert(u)
+      window.location.pathname = '/chat/' + p+"-"+u+'/';
+
+    }
+    function show(u){
+      //alert(10)
+       document.getElementById("selected").innerHTML=u;
+
+    }
+
+</script>
+</body>
+
+</html>

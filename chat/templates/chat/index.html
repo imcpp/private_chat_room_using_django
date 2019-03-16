@@ -1,0 +1,31 @@
+<!-- chat/templates/chat/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Rooms</title>
+</head>
+<body>
+    <p>welcome ,click for chatting</p><br>
+    {% for user in users%}
+       <h1 id="user">{{user}}</h1>
+
+    <input onclick="myfunction('{{user}}')" type="button" value="Enter"/>
+
+
+    {%endfor%}
+    <script>
+
+
+        function myfunction(user) {
+            //var user=document.getElementById("user").innerHTML
+            var total="{{user}}"+user
+            var t=total.split("")
+            t.sort()
+            var u=t.join("")
+            //alert(u)
+            window.location.pathname = '/chat/' + u+'-'+user+ '/';
+        };
+    </script>
+</body>
+</html>

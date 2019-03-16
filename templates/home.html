@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>connect</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+  {% if user.is_authenticated %}
+    <label id="user" style="font-size:30px;color:red;">  {{request.user}}</label>
+    <a href="/profile" class="btn btn-info" role="button">profile</a>
+
+
+    <a href="{%url "logout" %}" class="btn btn-info" role="button">Logout</a>
+      <a href="/chat" class="btn btn-info" role="button">Chat</a>
+
+
+  {% else %}
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#logModal">log in</button>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">sign up</button>
+  {%endif%}
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">sign up</h4>
+        </div>
+        <div class="modal-body">
+          <form class="" action="{%url "signup"%}" method="post">
+            {%csrf_token%}
+            <input type="text" name="name" value="" placeholder="enter your name" required>
+            <input type="password" name="password" value="" placeholder="password" required>
+            <input type="password" name="cpassword" value="" placeholder="confirm pass" required>
+            <button type="submit" name="button">submit</button>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <!-- Trigger the modal with a button -->
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="logModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">log in</h4>
+        </div>
+        <div class="modal-body">
+          <form class="" action="{%url "login"%}" method="post">
+            {%csrf_token%}
+            <input type="text" name="name" value="" placeholder="enter your name" required>
+            <input type="password" name="password" value="" placeholder="password" required>
+            <button type="submit" name="button">submit</button>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  {%if error%}
+    {{error}}
+    {%endif%}
+
+
+
+
+
+</body>
+</html>
